@@ -91,7 +91,7 @@
             height: 0;
             overflow: hidden;
             border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             background: #000;
         }
 
@@ -102,6 +102,18 @@
             width: 100%;
             height: 100%;
             border: 0;
+        }
+
+        .fallback-link {
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .fallback-link a {
+            color: var(--primary-dark);
+            text-decoration: underline;
         }
 
         .grid-2col {
@@ -153,7 +165,7 @@
         /* Print Formatting Rules */
         @media print {
             body { background: white; padding: 0; }
-            .nav-tabs, .video-container, .btn-print, header p { display: none; }
+            .nav-tabs, .video-container, .fallback-link, .btn-print, header p { display: none; }
             .day-card { box-shadow: none; padding: 0; }
             .work-box { height: 90px; }
             details { display: none; } /* Hide answer key on print worksheet */
@@ -188,7 +200,7 @@ const daysData = {
     1: {
         title: "Day 1: Operations with Decimals",
         revision: "<strong>Line up the dots!</strong> When adding or subtracting, line up decimal points vertically. For multiplication, ignore decimals first, multiply whole numbers, then count total decimal places in factors to set your final decimal position.",
-        videoId: "kwh42dp8s0Y", // Khan Academy Decimal Multiplication example
+        videoId: "3H9DYeR5Wmg", // Math Antics: Decimal Arithmetic
         problems: [
             "1. Solve: 14.38 + 9.625",
             "2. Solve: 30.5 - 12.84",
@@ -201,7 +213,7 @@ const daysData = {
     2: {
         title: "Day 2: Order of Operations (BEDMAS)",
         revision: "<strong>BEDMAS Rules:</strong> Brackets → Exponents → Division & Multiplication (left to right) → Addition & Subtraction (left to right). Always complete multiplication/division before addition/subtraction!",
-        videoId: "dAgfnK528RA", // Math Antics Order of Operations
+        videoId: "dAgfnK528RA", // Math Antics: Order of Operations
         problems: [
             "1. Evaluate: 18 + 6 ÷ 2 - 4",
             "2. Evaluate: (12 - 4) × 5 + 3",
@@ -214,7 +226,7 @@ const daysData = {
     3: {
         title: "Day 3: Factors, Multiples & Divisibility",
         revision: "<strong>GCF vs LCM:</strong> GCF is the largest factor that divides into two numbers (great for reducing fractions). LCM is the smallest shared multiple (great for common denominators). <strong>Rule of 3:</strong> If sum of digits is divisible by 3, the number is too!",
-        videoId: "3W8m8C53pEw", // Divisibility Rules
+        videoId: "ZFR4S6X1C4k", // Math Antics: Factoring & Prime Factors
         problems: [
             "1. Prime Factorization of 36 (Draw tree)",
             "2. Test 4,251 for divisibility by 3, 6, 9",
@@ -226,7 +238,7 @@ const daysData = {
     },
     4: {
         title: "Day 4: Fractions & Mixed Numbers",
-        revision: "<strong>Adding Fractions:</strong> Never add denominators! Find the LCM to make matching denominators first. To convert mixed numbers ($2 \\frac{1}{3}$), multiply whole number by bottom and add top ($7/3$).",
+        revision: "<strong>Adding Fractions:</strong> Never add denominators! Find the LCM to make matching denominators first. To convert mixed numbers (2 1/3), multiply whole number by bottom and add top (7/3).",
         videoId: "N-Y0K96Xy4", // Adding Fractions with Unlike Denominators
         problems: [
             "1. Convert 17/5 to mixed & 3 5/8 to improper",
@@ -239,7 +251,7 @@ const daysData = {
     },
     5: {
         title: "Day 5: Ratios & Percentages",
-        revision: "<strong>Percent = Out of 100:</strong> To find a percent of a number, convert percent to decimal (divide by 100) and multiply. Example: $20\\% \\text{ of } 80 = 0.20 \\times 80 = 16$.",
+        revision: "<strong>Percent = Out of 100:</strong> To find a percent of a number, convert percent to decimal (divide by 100) and multiply. Example: 20% of 80 = 0.20 × 80 = 16.",
         videoId: "Uf-Rl1e2I4Q", // Ratios and Proportions
         problems: [
             "1. Simplify Ratio: 12 : 18",
@@ -253,7 +265,6 @@ const daysData = {
 };
 
 function loadDay(dayNum) {
-    // Update active tab style
     document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
         btn.classList.toggle('active', idx === (dayNum - 1));
     });
@@ -269,6 +280,11 @@ function loadDay(dayNum) {
         <div class="video-container">
             <iframe src="https://www.youtube-nocookie.com/embed/${day.videoId}" title="Lesson Video" allowfullscreen></iframe>
         </div>
+        <p class="fallback-link">
+            <a href="https://www.youtube.com/watch?v=${day.videoId}" target="_blank" rel="noopener">
+                📺 Having trouble playing? Click here to watch directly on YouTube
+            </a>
+        </p>
 
         <h3>Practice Worksheet</h3>
         <div class="grid-2col">
@@ -295,7 +311,6 @@ function loadDay(dayNum) {
     document.getElementById('content-area').innerHTML = html;
 }
 
-// Load Day 1 by default on page open
 loadDay(1);
 </script>
 
