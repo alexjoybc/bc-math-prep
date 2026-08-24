@@ -169,7 +169,7 @@
             color: var(--primary-dark);
         }
 
-        /* Print Formatting Rules optimized for A4 / Letter single page */
+        /* Print Formatting Rules */
         @media print {
             body { background: white; padding: 0; font-size: 11pt; }
             .container { max-width: 100%; }
@@ -179,7 +179,7 @@
             .grid-2col { gap: 8px; margin-bottom: 10px; }
             .problem-card { padding: 6px 10px; }
             .work-box { height: 50px; }
-            details { display: none; } /* Hide answer key on printed page */
+            details { display: none; }
         }
     </style>
 </head>
@@ -245,7 +245,8 @@ const daysData = {
     3: {
         title: "Day 3: Factors, Multiples & Divisibility",
         revision: "<strong>GCF vs LCM:</strong> GCF is the largest factor that divides two numbers. LCM is the smallest shared multiple. <strong>Rule of 3:</strong> Divisible by 3 if sum of digits is divisible by 3.",
-        videoId: "ZFR4S6X1C4k", // Math Antics: Factoring & Prime Factors
+        videoId: "tE85eIZ39c0", // Math Antics: Factors and Prime Factorization (Verified Embed Enabled)
+        // Alternative verified embed: "0Nv_x3n6T8M" (Math Antics: GCF)
         problems: [
             "1. Prime Factorization of 36",
             "2. Is 4,251 divisible by 3, 6, or 9?",
@@ -261,7 +262,7 @@ const daysData = {
     },
     4: {
         title: "Day 4: Fractions & Mixed Numbers",
-        revision: "<strong>Adding Fractions:</strong> Find the LCM to make matching denominators before adding numerators. Convert mixed numbers ($2 \\frac{1}{3} = \\frac{7}{3}$) when needed.",
+        revision: "<strong>Adding Fractions:</strong> Find the LCM to make matching denominators before adding numerators. Convert mixed numbers (2 1/3 = 7/3) when needed.",
         videoId: "N-Y0K96Xy4", // Adding Fractions with Unlike Denominators
         problems: [
             "1. Convert 17/5 to mixed number",
@@ -278,7 +279,7 @@ const daysData = {
     },
     5: {
         title: "Day 5: Ratios & Percentages",
-        revision: "<strong>Percent = Out of 100:</strong> To find percent of a number, convert percent to decimal and multiply ($20\\% \\text{ of } 80 = 0.20 \\times 80 = 16$).",
+        revision: "<strong>Percent = Out of 100:</strong> To find percent of a number, convert percent to decimal and multiply (20% of 80 = 0.20 × 80 = 16).",
         videoId: "Uf-Rl1e2I4Q", // Ratios and Proportions
         problems: [
             "1. Simplify Ratio: 12 : 18",
