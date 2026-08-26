@@ -142,6 +142,15 @@
             color: white;
         }
 
+        .toolbar-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         .day-card {
             background: var(--card-bg);
             border-radius: 8px;
@@ -281,49 +290,174 @@
             font-size: 1rem;
             border-radius: 6px;
             cursor: pointer;
-            margin-bottom: 20px;
             font-weight: bold;
         }
 
-        /* Answer Lock Styling */
-        .parent-key-container {
-            margin-top: 30px;
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
-        }
-
-        .btn-unlock {
+        .btn-toggle-answers {
             background: #475569;
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
         }
 
-        .answer-content {
+        .btn-toggle-answers.unlocked {
+            background: #b45309;
+        }
+
+        /* Inline Answer Reveal (per question) */
+        .answer-reveal {
             display: none;
-            margin-top: 12px;
-            padding: 12px;
-            background: white;
+            margin-top: 10px;
+            padding: 8px 10px;
+            background: #ecfdf5;
+            border: 1px solid #6ee7b7;
             border-radius: 4px;
-            border-left: 4px solid var(--accent);
+            font-size: 0.85rem;
+        }
+
+        .answers-unlocked .answer-reveal {
+            display: block;
+        }
+
+        .answer-final {
+            font-weight: bold;
+            color: #065f46;
+            margin-bottom: 4px;
+        }
+
+        .answer-steps {
+            margin: 4px 0 0 0;
+            padding-left: 18px;
+            color: #1e293b;
+        }
+
+        .answer-steps li {
+            margin-bottom: 3px;
+        }
+
+        .answer-hint {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .answers-unlocked .answer-hint {
+            display: none;
+        }
+
+        .parent-key-container {
+            margin-top: 20px;
+            background: #f1f5f9;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.85rem;
+            color: #475569;
+        }
+
+        /* Home Page Styling */
+        .home-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .home-hero h2 {
+            margin-top: 0;
+        }
+
+        .home-section {
+            margin-bottom: 22px;
+        }
+
+        .home-section h3 {
+            color: var(--primary-dark);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 6px;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .steps-list li {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 10px 14px;
+            border-radius: 4px;
+        }
+
+        .tip-box {
+            background: #ecfdf5;
+            border: 1px solid #6ee7b7;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+        }
+
+        .tip-box h4 {
+            margin-top: 0;
+            color: #065f46;
+        }
+
+        .day-overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+        }
+
+        .day-overview-card {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+
+        .day-overview-card:hover {
+            border-color: var(--primary);
+            background: #f0f9ff;
+        }
+
+        .btn-start {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
         }
 
         /* Print Formatting Rules */
         @media print {
             body { background: white; padding: 0; font-size: 10pt; }
             .container { max-width: 100%; }
-            .nav-tabs, .video-container, .fallback-link, .btn-print, .timer-card, .parent-key-container, header p { display: none; }
+            .nav-tabs, .video-container, .fallback-link, .toolbar-row, .timer-card, .parent-key-container, header p { display: none; }
             .day-card { box-shadow: none; padding: 0; }
             .concept-box { padding: 8px 12px; margin-bottom: 10px; }
             .warmup-box { padding: 8px 12px; margin-bottom: 10px; }
             .grid-2col { gap: 8px; margin-bottom: 10px; }
             .problem-card { padding: 6px 10px; }
             .work-box { height: 40px; }
+            .answer-reveal, .answer-hint { display: none !important; }
         }
     </style>
 </head>
@@ -353,14 +487,18 @@
     </div>
 
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="loadDay(1)">Day 1: Decimals</button>
+        <button class="tab-btn active" onclick="loadHome()">🏠 Home</button>
+        <button class="tab-btn" onclick="loadDay(1)">Day 1: Decimals</button>
         <button class="tab-btn" onclick="loadDay(2)">Day 2: BEDMAS</button>
         <button class="tab-btn" onclick="loadDay(3)">Day 3: Factors & Rules</button>
         <button class="tab-btn" onclick="loadDay(4)">Day 4: Fractions</button>
         <button class="tab-btn" onclick="loadDay(5)">Day 5: Ratios & %</button>
     </div>
 
-    <button class="btn-print" onclick="window.print()">🖨️ Print Today's Worksheet</button>
+    <div class="toolbar-row">
+        <button class="btn-print" onclick="window.print()">🖨️ Print Today's Worksheet</button>
+        <button id="toggle-answers-btn" class="btn-toggle-answers" onclick="toggleAnswers()">🔒 Unlock Parent Answers</button>
+    </div>
 
     <div id="content-area" class="day-card">
         <!-- Content injects dynamically -->
@@ -381,7 +519,7 @@ function updateTimerDisplay() {
     const secs = timerSeconds % 60;
     const display = document.getElementById('timer-display');
     display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    
+
     if (timerSeconds <= 60 && timerSeconds > 0) {
         display.classList.add('warning');
     } else {
@@ -471,19 +609,23 @@ const daysData = {
             <span class="trap-warning">⚠️ Common Trap:</span> Do NOT line up decimals when multiplying! Only line them up when adding or subtracting.
         `,
         warmup: "<strong>Quick 5-Min Warm-Up Quiz:</strong><br>1) Where do you line up decimal points when subtracting 12.5 - 3.42? <br>2) How many decimal places will be in the final product of 0.12 × 0.3?",
+        warmupAnswer: "1) Line up vertically (write 12.50 - 3.42) &nbsp;|&nbsp; 2) 3 decimal places (0.036)",
         videoId: "3H9DYeR5Wmg",
         problems: [
-            "1. Solve: 14.38 + 9.625",
-            "2. Solve: 30.5 - 12.84",
-            "3. Multiply: 4.2 × 0.85",
-            "4. Multiply: 12.4 × 3.1",
-            "5. Solve: 100 - 43.67",
-            "6. Multiply: 6.75 × 0.04",
-            "7. Solve: 8.91 + 14.09 - 6.25",
-            "8. Multiply: 0.15 × 0.8"
+            { q: "1. Solve: 14.38 + 9.625", a: "24.005", steps: ["Line up decimal points: 14.380 + 9.625 (pad 14.38 with a trailing zero).", "Add column by column: 14.380 + 9.625 = 24.005."] },
+            { q: "2. Solve: 30.5 - 12.84", a: "17.66", steps: ["Line up decimal points: 30.50 - 12.84 (pad 30.5 with a trailing zero).", "Subtract column by column: 30.50 - 12.84 = 17.66."] },
+            { q: "3. Multiply: 4.2 × 0.85", a: "3.57", steps: ["Multiply as whole numbers, ignoring decimals: 42 × 85 = 3570.", "Count total decimal places: 4.2 (1) + 0.85 (2) = 3 places.", "Move the decimal 3 places left: 3.570 = 3.57."] },
+            { q: "4. Multiply: 12.4 × 3.1", a: "38.44", steps: ["Multiply as whole numbers: 124 × 31 = 3844.", "Count total decimal places: 12.4 (1) + 3.1 (1) = 2 places.", "Move the decimal 2 places left: 38.44."] },
+            { q: "5. Solve: 100 - 43.67", a: "56.33", steps: ["Write 100 as 100.00 to match decimal places.", "Subtract: 100.00 - 43.67 = 56.33."] },
+            { q: "6. Multiply: 6.75 × 0.04", a: "0.27", steps: ["Multiply as whole numbers: 675 × 4 = 2700.", "Count total decimal places: 6.75 (2) + 0.04 (2) = 4 places.", "Move the decimal 4 places left: 0.2700 = 0.27."] },
+            { q: "7. Solve: 8.91 + 14.09 - 6.25", a: "16.75", steps: ["Work left to right. First add: 8.91 + 14.09 = 23.00.", "Then subtract: 23.00 - 6.25 = 16.75."] },
+            { q: "8. Multiply: 0.15 × 0.8", a: "0.12", steps: ["Multiply as whole numbers: 15 × 8 = 120.", "Count total decimal places: 0.15 (2) + 0.8 (1) = 3 places.", "Move the decimal 3 places left: 0.120 = 0.12."] }
         ],
-        wordProblem: "Maya buys 3 notebooks at $3.45 each and pens for $4.80 in Victoria. If she pays with a $20 bill, how much change does she get?",
-        answers: "1) Line up vertically (write 12.50 - 3.42) | 2) 3 decimal places (0.036)<br><br><strong>Worksheet Solutions:</strong><br>1) 24.005 | 2) 17.66 | 3) 3.57 | 4) 38.44 | 5) 56.33 | 6) 0.27 | 7) 16.75 | 8) 0.12 | Word Problem: $4.85 change (Total spent: $15.15)."
+        wordProblem: {
+            q: "Maya buys 3 notebooks at $3.45 each and pens for $4.80 in Victoria. If she pays with a $20 bill, how much change does she get?",
+            a: "$4.85 change",
+            steps: ["Cost of notebooks: 3 × $3.45 = $10.35.", "Add the pens: $10.35 + $4.80 = $15.15 total spent.", "Subtract from $20: $20.00 - $15.15 = $4.85 change."]
+        }
     },
     2: {
         title: "Day 2: Order of Operations (BEDMAS)",
@@ -504,19 +646,23 @@ const daysData = {
             <span class="trap-warning">⚠️ Common Trap:</span> Division does NOT come before multiplication just because 'D' comes before 'M' in BEDMAS. Work left to right!
         `,
         warmup: "<strong>Quick 5-Min Warm-Up Quiz:</strong><br>1) In 10 - 2 × 4, which operation do you do first?<br>2) Evaluate 12 ÷ 3 × 2 from left to right.",
+        warmupAnswer: "1) Multiplication (2 × 4 = 8) &nbsp;|&nbsp; 2) 12 ÷ 3 = 4, then 4 × 2 = 8",
         videoId: "dAgfnK528RA",
         problems: [
-            "1. Evaluate: 18 + 6 ÷ 2 - 4",
-            "2. Evaluate: (12 - 4) × 5 + 3",
-            "3. Evaluate: 45 ÷ (3 + 6) × 2",
-            "4. Evaluate: 7 × 4 - 18 ÷ 3",
-            "5. Evaluate: 50 - (4 + 2) × 6",
-            "6. Evaluate: 100 - 5 × 4 + 8 ÷ 2",
-            "7. Evaluate: (8 + 4) ÷ (10 - 6)",
-            "8. Error Check: 10 + 5 × 2 = ?"
+            { q: "1. Evaluate: 18 + 6 ÷ 2 - 4", a: "17", steps: ["Division first (leftmost D/M): 6 ÷ 2 = 3 ➔ 18 + 3 - 4.", "Left to right A/S: 18 + 3 = 21.", "Then: 21 - 4 = 17."] },
+            { q: "2. Evaluate: (12 - 4) × 5 + 3", a: "43", steps: ["Brackets first: 12 - 4 = 8 ➔ 8 × 5 + 3.", "Multiplication: 8 × 5 = 40.", "Addition: 40 + 3 = 43."] },
+            { q: "3. Evaluate: 45 ÷ (3 + 6) × 2", a: "10", steps: ["Brackets first: 3 + 6 = 9 ➔ 45 ÷ 9 × 2.", "Left to right D/M: 45 ÷ 9 = 5.", "Then: 5 × 2 = 10."] },
+            { q: "4. Evaluate: 7 × 4 - 18 ÷ 3", a: "22", steps: ["Left to right D/M: 7 × 4 = 28 and 18 ÷ 3 = 6 ➔ 28 - 6.", "Subtract: 28 - 6 = 22."] },
+            { q: "5. Evaluate: 50 - (4 + 2) × 6", a: "14", steps: ["Brackets first: 4 + 2 = 6 ➔ 50 - 6 × 6.", "Multiplication: 6 × 6 = 36.", "Subtraction: 50 - 36 = 14."] },
+            { q: "6. Evaluate: 100 - 5 × 4 + 8 ÷ 2", a: "84", steps: ["Left to right D/M: 5 × 4 = 20 and 8 ÷ 2 = 4 ➔ 100 - 20 + 4.", "Left to right A/S: 100 - 20 = 80.", "Then: 80 + 4 = 84."] },
+            { q: "7. Evaluate: (8 + 4) ÷ (10 - 6)", a: "3", steps: ["Brackets first: 8 + 4 = 12 and 10 - 6 = 4 ➔ 12 ÷ 4.", "Divide: 12 ÷ 4 = 3."] },
+            { q: "8. Error Check: 10 + 5 × 2 = ?", a: "20 (not 30)", steps: ["Multiplication first, not left-to-right addition: 5 × 2 = 10.", "Then add: 10 + 10 = 20.", "The common wrong answer 30 comes from adding 10 + 5 first, which breaks BEDMAS."] }
         ],
-        wordProblem: "Liam bought 4 boxes of granola bars with 6 in each. He ate 3 and gave 5 to friends. Write a bracket expression and calculate remaining bars.",
-        answers: "1) Multiplication (2 × 4 = 8) | 2) 12 ÷ 3 = 4, then 4 × 2 = 8<br><br><strong>Worksheet Solutions:</strong><br>1) 17 | 2) 43 | 3) 10 | 4) 22 | 5) 14 | 6) 84 | 7) 3 | 8) Correct answer is 20 | Word Problem: (4 × 6) - 3 - 5 = 16 bars."
+        wordProblem: {
+            q: "Liam bought 4 boxes of granola bars with 6 in each. He ate 3 and gave 5 to friends. Write a bracket expression and calculate remaining bars.",
+            a: "(4 × 6) - 3 - 5 = 16 bars",
+            steps: ["Total bars bought: 4 × 6 = 24.", "Subtract what he ate: 24 - 3 = 21.", "Subtract what he gave away: 21 - 5 = 16 bars remaining."]
+        }
     },
     3: {
         title: "Day 3: Factors, Multiples & Divisibility",
@@ -540,19 +686,23 @@ const daysData = {
             </div>
         `,
         warmup: "<strong>Quick 5-Min Warm-Up Quiz:</strong><br>1) Is 51 divisible by 3? (Check digit sum).<br>2) What is the GCF of 10 and 15?",
+        warmupAnswer: "1) Yes (5+1=6, which is divisible by 3) &nbsp;|&nbsp; 2) GCF = 5",
         videoId: "vcn2ruTOwFo",
         problems: [
-            "1. Prime Factorization of 36",
-            "2. Is 4,251 divisible by 3, 6, or 9?",
-            "3. Find GCF of 24 and 36",
-            "4. Find LCM of 8 and 12",
-            "5. Find GCF of 18 and 45",
-            "6. Find LCM of 6 and 9",
-            "7. List all factors of 48",
-            "8. Find first 3 common multiples of 4 & 6"
+            { q: "1. Prime Factorization of 36", a: "2 × 2 × 3 × 3 (2² × 3²)", steps: ["Start a factor tree: 36 = 6 × 6.", "Break each 6 down: 6 = 2 × 3, so 36 = 2 × 3 × 2 × 3.", "Write in order: 2 × 2 × 3 × 3."] },
+            { q: "2. Is 4,251 divisible by 3, 6, or 9?", a: "Divisible by 3 only", steps: ["Sum the digits: 4 + 2 + 5 + 1 = 12.", "12 is divisible by 3, so 4,251 is divisible by 3.", "12 is not divisible by 9, so not divisible by 9.", "4,251 is odd, so it fails the 'even' rule for 6 — not divisible by 6."] },
+            { q: "3. Find GCF of 24 and 36", a: "12", steps: ["Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24.", "Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36.", "Largest number in both lists: 12."] },
+            { q: "4. Find LCM of 8 and 12", a: "24", steps: ["Multiples of 8: 8, 16, 24, 32...", "Multiples of 12: 12, 24, 36...", "Smallest number in both lists: 24."] },
+            { q: "5. Find GCF of 18 and 45", a: "9", steps: ["Factors of 18: 1, 2, 3, 6, 9, 18.", "Factors of 45: 1, 3, 5, 9, 15, 45.", "Largest number in both lists: 9."] },
+            { q: "6. Find LCM of 6 and 9", a: "18", steps: ["Multiples of 6: 6, 12, 18...", "Multiples of 9: 9, 18...", "Smallest number in both lists: 18."] },
+            { q: "7. List all factors of 48", a: "1, 2, 3, 4, 6, 8, 12, 16, 24, 48", steps: ["Find factor pairs: 1×48, 2×24, 3×16, 4×12, 6×8.", "List every number from each pair in order: 1, 2, 3, 4, 6, 8, 12, 16, 24, 48."] },
+            { q: "8. Find first 3 common multiples of 4 & 6", a: "12, 24, 36", steps: ["Multiples of 4: 4, 8, 12, 16, 20, 24, 28, 32, 36...", "Multiples of 6: 6, 12, 18, 24, 30, 36...", "Numbers in both lists, in order: 12, 24, 36."] }
         ],
-        wordProblem: "Sausages come in packs of 10 and buns in packs of 8. What is the fewest packs of each you need to buy to have equal amounts?",
-        answers: "1) Yes (5+1=6, which is divisible by 3) | 2) GCF = 5<br><br><strong>Worksheet Solutions:</strong><br>1) 2 × 2 × 3 × 3 | 2) Divisible by 3 only | 3) GCF = 12 | 4) LCM = 24 | 5) GCF = 9 | 6) LCM = 18 | 7) 1, 2, 3, 4, 6, 8, 12, 16, 24, 48 | 8) 12, 24, 36 | Word Problem: 4 packs sausages (40), 5 packs buns (40)."
+        wordProblem: {
+            q: "Sausages come in packs of 10 and buns in packs of 8. What is the fewest packs of each you need to buy to have equal amounts?",
+            a: "4 packs of sausages (40), 5 packs of buns (40)",
+            steps: ["Find the LCM of 10 and 8, since we need equal totals.", "Multiples of 10: 10, 20, 30, 40. Multiples of 8: 8, 16, 24, 32, 40. LCM = 40.", "Packs of sausages needed: 40 ÷ 10 = 4.", "Packs of buns needed: 40 ÷ 8 = 5."]
+        }
     },
     4: {
         title: "Day 4: Fractions & Mixed Numbers",
@@ -575,19 +725,23 @@ const daysData = {
             <span class="trap-warning">⚠️ Common Trap:</span> Never add or subtract bottom denominators! 1/2 + 1/2 = 2/2 = 1, NOT 2/4.
         `,
         warmup: "<strong>Quick 5-Min Warm-Up Quiz:</strong><br>1) What is the common denominator (LCM) for 1/3 and 2/5?<br>2) Convert 13/4 to a mixed number.",
+        warmupAnswer: "1) LCM = 15 &nbsp;|&nbsp; 2) 3 1/4",
         videoId: "N-Y0K96Xy4",
         problems: [
-            "1. Convert 17/5 to mixed number",
-            "2. Convert 3 5/8 to improper fraction",
-            "3. Solve: 3/4 + 2/5",
-            "4. Solve: 7/8 - 1/3",
-            "5. Solve: 2 1/3 + 1 3/4",
-            "6. Solve: 4 1/2 - 2 2/3",
-            "7. Simplify: 18/24 to lowest terms",
-            "8. Solve: 5/6 - 1/4 + 1/2"
+            { q: "1. Convert 17/5 to mixed number", a: "3 2/5", steps: ["Divide numerator by denominator: 17 ÷ 5 = 3 remainder 2.", "The whole number is 3, and the remainder becomes the new numerator: 3 2/5."] },
+            { q: "2. Convert 3 5/8 to improper fraction", a: "29/8", steps: ["Multiply whole number by denominator: 3 × 8 = 24.", "Add the numerator: 24 + 5 = 29.", "Keep the same denominator: 29/8."] },
+            { q: "3. Solve: 3/4 + 2/5", a: "1 3/20", steps: ["Find LCM of 4 and 5: 20.", "Convert: 3/4 = 15/20 and 2/5 = 8/20.", "Add: 15/20 + 8/20 = 23/20 = 1 3/20."] },
+            { q: "4. Solve: 7/8 - 1/3", a: "13/24", steps: ["Find LCM of 8 and 3: 24.", "Convert: 7/8 = 21/24 and 1/3 = 8/24.", "Subtract: 21/24 - 8/24 = 13/24."] },
+            { q: "5. Solve: 2 1/3 + 1 3/4", a: "4 1/12", steps: ["Convert to improper fractions: 2 1/3 = 7/3 and 1 3/4 = 7/4.", "Find LCM of 3 and 4: 12. Convert: 7/3 = 28/12 and 7/4 = 21/12.", "Add: 28/12 + 21/12 = 49/12 = 4 1/12."] },
+            { q: "6. Solve: 4 1/2 - 2 2/3", a: "1 5/6", steps: ["Convert to improper fractions: 4 1/2 = 9/2 and 2 2/3 = 8/3.", "Find LCM of 2 and 3: 6. Convert: 9/2 = 27/6 and 8/3 = 16/6.", "Subtract: 27/6 - 16/6 = 11/6 = 1 5/6."] },
+            { q: "7. Simplify: 18/24 to lowest terms", a: "3/4", steps: ["Find GCF of 18 and 24: 6.", "Divide both by 6: 18 ÷ 6 = 3, 24 ÷ 6 = 4.", "Simplified fraction: 3/4."] },
+            { q: "8. Solve: 5/6 - 1/4 + 1/2", a: "1 1/12", steps: ["Find LCM of 6, 4, and 2: 12.", "Convert: 5/6 = 10/12, 1/4 = 3/12, 1/2 = 6/12.", "Work left to right: 10/12 - 3/12 = 7/12, then 7/12 + 6/12 = 13/12 = 1 1/12."] }
         ],
-        wordProblem: "A Kelowna crisp recipe needs 1 3/4 cups flour and 2 2/3 cups oats. How many total cups of dry ingredients are needed?",
-        answers: "1) LCM = 15 | 2) 3 1/4<br><br><strong>Worksheet Solutions:</strong><br>1) 3 2/5 | 2) 29/8 | 3) 1 3/20 | 4) 13/24 | 5) 4 1/12 | 6) 1 5/6 | 7) 3/4 | 8) 1 1/12 | Word Problem: 4 5/12 cups."
+        wordProblem: {
+            q: "A Kelowna crisp recipe needs 1 3/4 cups flour and 2 2/3 cups oats. How many total cups of dry ingredients are needed?",
+            a: "4 5/12 cups",
+            steps: ["Convert to improper fractions: 1 3/4 = 7/4 and 2 2/3 = 8/3.", "Find LCM of 4 and 3: 12. Convert: 7/4 = 21/12 and 8/3 = 32/12.", "Add: 21/12 + 32/12 = 53/12 = 4 5/12 cups."]
+        }
     },
     5: {
         title: "Day 5: Ratios & Percentages",
@@ -609,31 +763,139 @@ const daysData = {
             </div>
         `,
         warmup: "<strong>Quick 5-Min Warm-Up Quiz:</strong><br>1) Simplify the ratio 10:15.<br>2) What is 10% of 60?",
+        warmupAnswer: "1) 2:3 &nbsp;|&nbsp; 2) 6",
         videoId: "Uf-Rl1e2I4Q",
         problems: [
-            "1. Simplify Ratio: 12 : 18",
-            "2. Convert 3/5 to decimal and percent",
-            "3. Find 25% of 160",
-            "4. Find 15% of $40.00",
-            "5. Convert 0.45 to simplified fraction",
-            "6. Find missing x: 2/5 = x/25",
-            "7. Find 10% of $250.00",
-            "8. Express 15 out of 20 as a percent"
+            { q: "1. Simplify Ratio: 12 : 18", a: "2 : 3", steps: ["Find the GCF of 12 and 18: 6.", "Divide both sides by 6: 12 ÷ 6 = 2, 18 ÷ 6 = 3.", "Simplified ratio: 2 : 3."] },
+            { q: "2. Convert 3/5 to decimal and percent", a: "0.6 and 60%", steps: ["Divide: 3 ÷ 5 = 0.6.", "Multiply the decimal by 100 to get a percent: 0.6 × 100 = 60%."] },
+            { q: "3. Find 25% of 160", a: "40", steps: ["Convert 25% to a decimal: 25 ÷ 100 = 0.25.", "Multiply: 0.25 × 160 = 40."] },
+            { q: "4. Find 15% of $40.00", a: "$6.00", steps: ["Convert 15% to a decimal: 15 ÷ 100 = 0.15.", "Multiply: 0.15 × 40 = $6.00."] },
+            { q: "5. Convert 0.45 to simplified fraction", a: "9/20", steps: ["Write as a fraction out of 100: 0.45 = 45/100.", "Find GCF of 45 and 100: 5.", "Divide both by 5: 45 ÷ 5 = 9, 100 ÷ 5 = 20 ➔ 9/20."] },
+            { q: "6. Find missing x: 2/5 = x/25", a: "x = 10", steps: ["Find the scale factor from 5 to 25: 25 ÷ 5 = 5.", "Multiply the numerator by the same scale factor: 2 × 5 = 10.", "So x = 10."] },
+            { q: "7. Find 10% of $250.00", a: "$25.00", steps: ["Convert 10% to a decimal: 10 ÷ 100 = 0.1.", "Multiply: 0.1 × 250 = $25.00."] },
+            { q: "8. Express 15 out of 20 as a percent", a: "75%", steps: ["Write as a fraction: 15/20.", "Divide: 15 ÷ 20 = 0.75.", "Multiply by 100: 0.75 × 100 = 75%."] }
         ],
-        wordProblem: "A jacket in Vancouver costs $80 and is 20% off. Find the discount amount and the final sale price before tax.",
-        answers: "1) 2:3 | 2) 6<br><br><strong>Worksheet Solutions:</strong><br>1) 2 : 3 | 2) 0.6 and 60% | 3) 40 | 4) $6.00 | 5) 9/20 | 6) x = 10 | 7) $25.00 | 8) 75% | Word Problem: Discount = $16, Final Price = $64."
+        wordProblem: {
+            q: "A jacket in Vancouver costs $80 and is 20% off. Find the discount amount and the final sale price before tax.",
+            a: "Discount = $16, Final Price = $64",
+            steps: ["Convert 20% to a decimal: 20 ÷ 100 = 0.2.", "Find the discount: 0.2 × $80 = $16.", "Subtract from the original price: $80 - $16 = $64 final price."]
+        }
     }
 };
 
-function loadDay(dayNum) {
-    document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
-        btn.classList.toggle('active', idx === (dayNum - 1));
+// --- Parent Answer Unlock (persists across day tabs for the session) ---
+let answersUnlocked = sessionStorage.getItem('answersUnlocked') === 'true';
+
+function toggleAnswers() {
+    if (!answersUnlocked) {
+        const input = prompt("Enter Parent Passcode to reveal step-by-step answers:");
+        if (input === null) return;
+        if (input !== PARENT_PASSCODE) {
+            alert("Incorrect passcode! Peeking is not allowed 😉");
+            return;
+        }
+        answersUnlocked = true;
+    } else {
+        answersUnlocked = false;
+    }
+    sessionStorage.setItem('answersUnlocked', answersUnlocked);
+    applyAnswerState();
+}
+
+function applyAnswerState() {
+    const contentArea = document.getElementById('content-area');
+    const btn = document.getElementById('toggle-answers-btn');
+    if (contentArea) {
+        contentArea.classList.toggle('answers-unlocked', answersUnlocked);
+    }
+    if (btn) {
+        btn.textContent = answersUnlocked ? '🔓 Hide Parent Answers' : '🔒 Unlock Parent Answers';
+        btn.classList.toggle('unlocked', answersUnlocked);
+    }
+}
+
+function renderAnswerReveal(finalAnswer, steps) {
+    return `
+        <div class="answer-reveal">
+            <div class="answer-final">✅ Answer: ${finalAnswer}</div>
+            <ol class="answer-steps">
+                ${steps.map(s => `<li>${s}</li>`).join('')}
+            </ol>
+        </div>
+        <span class="answer-hint">🔒 Ask a parent to unlock step-by-step solutions</span>
+    `;
+}
+
+function loadHome() {
+    setActiveTab(0);
+
+    const html = `
+        <div class="home-hero">
+            <h2>👋 Welcome, Parents!</h2>
+            <p>This bridge course helps your child review key Grade 6/7 math skills before the school year starts. It's designed for you to sit alongside your child and guide each 35-minute lesson — no math teaching background required!</p>
+            <button class="btn-start" onclick="loadDay(1)">▶️ Start Day 1: Decimals</button>
+        </div>
+
+        <div class="home-section">
+            <h3>📋 How Each Daily Lesson Works (35 Minutes)</h3>
+            <ul class="steps-list">
+                <li><strong>Step 1 – Concept & Warm-Up (5 min):</strong> Read the "Detailed Concept Review" together out loud, then talk through the Warm-Up Quiz questions as a quick discussion — no writing needed. Use the ⏱️ 5M Review timer button.</li>
+                <li><strong>Step 2 – Video Lesson (10 min):</strong> Watch the embedded video together. Pause it if your child has a question. Use the 🎥 10M Video timer button.</li>
+                <li><strong>Step 3 – Worksheet (20 min):</strong> Your child works through 8 practice problems plus one real-world word problem in the work boxes provided. Use the 📝 20M Work timer button. You can also click "🖨️ Print Today's Worksheet" for a paper copy.</li>
+            </ul>
+        </div>
+
+        <div class="home-section">
+            <h3>🔑 Checking Answers as a Parent</h3>
+            <div class="tip-box">
+                <h4>Where are the answers?</h4>
+                <p>Every question box has its answer built right in — hidden by default so your child can attempt it first. Click <strong>🔒 Unlock Parent Answers</strong> in the toolbar above any lesson and enter the passcode (<code>parent123</code>) to reveal the final answer <em>and</em> the step-by-step solution directly inside each question box.</p>
+            </div>
+            <div class="tip-box">
+                <h4>It stays unlocked</h4>
+                <p>Once unlocked, answers stay visible as you switch between days for the rest of your session — no need to re-enter the passcode every time. Click <strong>🔓 Hide Parent Answers</strong> to lock them again (for example, before your child sits back down).</p>
+            </div>
+        </div>
+
+        <div class="home-section">
+            <h3>💡 Tips for Helping Without Giving It Away</h3>
+            <ul class="steps-list">
+                <li>Let your child attempt every problem first — only unlock answers to <em>check</em> work, not to solve it for them.</li>
+                <li>If they get stuck, point them back to the "Detailed Concept Review" and "Worked Example" for that day instead of unlocking the answer right away.</li>
+                <li>Use the step-by-step solution to figure out exactly which step went wrong, rather than just marking it right or wrong.</li>
+                <li>Watch for each day's "⚠️ Common Trap" — these call out the most frequent mistakes students make on that topic.</li>
+            </ul>
+        </div>
+
+        <div class="home-section">
+            <h3>🗓️ 5-Day Overview</h3>
+            <div class="day-overview-grid">
+                <div class="day-overview-card" onclick="loadDay(1)">Day 1<br>Decimals</div>
+                <div class="day-overview-card" onclick="loadDay(2)">Day 2<br>BEDMAS</div>
+                <div class="day-overview-card" onclick="loadDay(3)">Day 3<br>Factors & Rules</div>
+                <div class="day-overview-card" onclick="loadDay(4)">Day 4<br>Fractions</div>
+                <div class="day-overview-card" onclick="loadDay(5)">Day 5<br>Ratios & %</div>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('content-area').innerHTML = html;
+    applyAnswerState();
+}
+
+function setActiveTab(idx) {
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === idx);
     });
+}
+
+function loadDay(dayNum) {
+    setActiveTab(dayNum);
 
     const day = daysData[dayNum];
     let html = `
         <h2>${day.title}</h2>
-        
+
         <div class="section-header">Step 1: 5-Minute Concept Review & Revision Check</div>
         <div class="concept-box">
             <h3>📖 Detailed Concept Review</h3>
@@ -643,6 +905,7 @@ function loadDay(dayNum) {
         <div class="warmup-box">
             <h4>🧠 Revision Warm-Up Check (Mental Math / Discussion)</h4>
             <p>${day.warmup}</p>
+            ${renderAnswerReveal(day.warmupAnswer, [])}
         </div>
 
         <div class="section-header">Step 2: 10-Minute Video Lesson</div>
@@ -659,41 +922,33 @@ function loadDay(dayNum) {
         <div class="grid-2col">
             ${day.problems.map(p => `
                 <div class="problem-card">
-                    <strong>${p}</strong>
+                    <strong>${p.q}</strong>
                     <div class="work-box"></div>
+                    ${renderAnswerReveal(p.a, p.steps)}
                 </div>
             `).join('')}
         </div>
 
         <div class="problem-card" style="margin-bottom: 20px;">
             <strong>Real-World Word Problem:</strong>
-            <p>${day.wordProblem}</p>
+            <p>${day.wordProblem.q}</p>
             <div class="work-box" style="height: 65px;"></div>
+            ${renderAnswerReveal(day.wordProblem.a, day.wordProblem.steps)}
         </div>
 
         <div class="parent-key-container">
-            <strong>🔒 Parent Answer Key (Passcode Protected)</strong><br>
-            <small>Enter passcode to unlock solutions for today's lesson.</small><br><br>
-            <button class="btn-unlock" onclick="unlockAnswers()">Unlock Solutions</button>
-            <div id="answer-display" class="answer-content">
-                ${day.answers}
-            </div>
+            🔒 Answers are hidden inside each question box above so your child can try first. Use the <strong>Unlock Parent Answers</strong> button in the toolbar to reveal step-by-step solutions for this entire lesson.
         </div>
     `;
 
     document.getElementById('content-area').innerHTML = html;
+    applyAnswerState();
+
+    // Warm-up reveal only needs the final text, hide the (empty) steps list.
+    document.querySelectorAll('.warmup-box .answer-steps').forEach(el => el.style.display = 'none');
 }
 
-function unlockAnswers() {
-    const input = prompt("Enter Parent Passcode:");
-    if (input === PARENT_PASSCODE) {
-        document.getElementById('answer-display').style.display = 'block';
-    } else if (input !== null) {
-        alert("Incorrect passcode! Peeking is not allowed 😉");
-    }
-}
-
-loadDay(1);
+loadHome();
 </script>
 
 </body>
