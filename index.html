@@ -668,7 +668,15 @@ const daysData = {
         title: "Day 3: Factors, Multiples & Divisibility",
         concept: `
             <ul>
-                <li><strong>Factors & Prime Factorization:</strong> Factors divide evenly into a number. Prime factors are prime numbers multiplied together to build a target number (use a factor tree).</li>
+                <li><strong>Factors:</strong> Numbers that divide evenly into another number with no remainder (e.g., the factors of 12 are 1, 2, 3, 4, 6, 12).</li>
+                <li><strong>Prime Numbers:</strong> A number with <em>exactly two</em> factors — 1 and itself. It cannot be split any further. The first few primes are <strong>2, 3, 5, 7, 11, 13</strong>. (Note: 1 is NOT prime, and 2 is the only even prime!)</li>
+                <li><strong>Prime Factorization:</strong> Breaking a number down into the prime numbers that multiply together to make it. The easiest way is a <strong>factor tree</strong>:
+                    <ol>
+                        <li>Split the number into any two factors (a "branch").</li>
+                        <li>If a branch is <em>not</em> prime, split it again.</li>
+                        <li>Keep going until every branch ends in a prime number — those are your answer!</li>
+                    </ol>
+                </li>
                 <li><strong>Greatest Common Factor (GCF):</strong> The largest shared factor between two numbers (used to simplify fractions).</li>
                 <li><strong>Least Common Multiple (LCM):</strong> The smallest shared multiple (used to find common denominators).</li>
                 <li><strong>BC Divisibility Quick Tests:</strong>
@@ -680,6 +688,13 @@ const daysData = {
                 </li>
             </ul>
             <div class="worked-example">
+                <strong>Worked Example (Prime Factorization of 12 using a Factor Tree):</strong><br>
+                1. Split 12 into any two factors: 12 = <strong>2</strong> × 6 (2 is already prime — circle it and stop that branch).<br>
+                2. 6 is not prime, so split it again: 6 = <strong>2</strong> × <strong>3</strong> (both prime — circle them and stop).<br>
+                3. Collect every circled prime number: <strong>12 = 2 × 2 × 3</strong>.<br>
+                <em>Tip: It doesn't matter which factors you pick first — a factor tree for 12 always ends with the same primes (2, 2, 3).</em>
+            </div>
+            <div class="worked-example">
                 <strong>Worked Example (GCF & LCM for 12 and 18):</strong><br>
                 Factors of 12: 1, 2, 3, 4, <strong>6</strong>, 12 | Factors of 18: 1, 2, 3, <strong>6</strong>, 9, 18 ➔ <strong>GCF = 6</strong><br>
                 Multiples of 12: 12, <strong>36</strong>, 48 | Multiples of 18: 18, <strong>36</strong>, 54 ➔ <strong>LCM = 36</strong>
@@ -689,7 +704,7 @@ const daysData = {
         warmupAnswer: "1) Yes (5+1=6, which is divisible by 3) &nbsp;|&nbsp; 2) GCF = 5",
         videoId: "vcn2ruTOwFo",
         problems: [
-            { q: "1. Prime Factorization of 36", a: "2 × 2 × 3 × 3 (2² × 3²)", steps: ["Start a factor tree: 36 = 6 × 6.", "Break each 6 down: 6 = 2 × 3, so 36 = 2 × 3 × 2 × 3.", "Write in order: 2 × 2 × 3 × 3."] },
+            { q: "1. Prime Factorization of 36 (Hint: draw a factor tree!)", a: "2 × 2 × 3 × 3 (2² × 3²)", steps: ["Split 36 into two factors: 36 = 6 × 6.", "Neither 6 is prime, so split each one: 6 = 2 × 3.", "Now 36 = 2 × 3 × 2 × 3 — every branch ends in a prime number.", "Write the primes in order (smallest to largest): 2 × 2 × 3 × 3."] },
             { q: "2. Is 4,251 divisible by 3, 6, or 9?", a: "Divisible by 3 only", steps: ["Sum the digits: 4 + 2 + 5 + 1 = 12.", "12 is divisible by 3, so 4,251 is divisible by 3.", "12 is not divisible by 9, so not divisible by 9.", "4,251 is odd, so it fails the 'even' rule for 6 — not divisible by 6."] },
             { q: "3. Find GCF of 24 and 36", a: "12", steps: ["Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24.", "Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36.", "Largest number in both lists: 12."] },
             { q: "4. Find LCM of 8 and 12", a: "24", steps: ["Multiples of 8: 8, 16, 24, 32...", "Multiples of 12: 12, 24, 36...", "Smallest number in both lists: 24."] },
