@@ -275,11 +275,15 @@
         }
 
         .work-box {
-            height: 45px;
+            height: 90px;
             border: 1px dashed #94a3b8;
             margin-top: 6px;
             border-radius: 4px;
             background: white;
+        }
+
+        .work-box-lg {
+            height: 130px;
         }
 
         .btn-print {
@@ -456,7 +460,8 @@
             .warmup-box { padding: 8px 12px; margin-bottom: 10px; }
             .grid-2col { gap: 8px; margin-bottom: 10px; }
             .problem-card { padding: 6px 10px; }
-            .work-box { height: 40px; }
+            .work-box { height: 75px; }
+            .work-box-lg { height: 100px; }
             .answer-reveal, .answer-hint { display: none !important; }
         }
     </style>
@@ -947,7 +952,7 @@ function loadDay(dayNum) {
         <div class="problem-card" style="margin-bottom: 20px;">
             <strong>Real-World Word Problem:</strong>
             <p>${day.wordProblem.q}</p>
-            <div class="work-box" style="height: 65px;"></div>
+            <div class="work-box work-box-lg"></div>
             ${renderAnswerReveal(day.wordProblem.a, day.wordProblem.steps)}
         </div>
 
