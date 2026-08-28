@@ -728,25 +728,42 @@ const daysData = {
         title: "Day 4: Fractions & Mixed Numbers",
         concept: `
             <ul>
-                <li><strong>Finding Common Denominators:</strong> You cannot add/subtract fractions with different denominators! Find the LCM of denominators first to write equivalent fractions.</li>
-                <li><strong>Improper ↔ Mixed Conversions:</strong>
+                <li><strong>The Golden Rule:</strong> You can only add or subtract fractions when the bottoms (denominators) match. If they don't match, you must fix that first — you can never add or subtract two different denominators together.</li>
+                <li><strong>Step-by-Step: Adding/Subtracting Fractions with Different Denominators</strong>
+                    <ol>
+                        <li>Find the LCM of the two denominators (see Day 3!). This becomes your new "common denominator."</li>
+                        <li>For each fraction, ask: "What do I multiply the bottom by to get the common denominator?" Multiply the top by that <em>same</em> number.</li>
+                        <li>Now that both fractions have the same bottom, just add or subtract the tops (numerators). Keep the bottom the same.</li>
+                        <li>Simplify the answer if possible (divide top and bottom by their GCF).</li>
+                    </ol>
+                </li>
+                <li><strong>Mixed Numbers ↔ Improper Fractions:</strong>
                     <ul>
-                        <li>Mixed to Improper: Whole × Denominator + Numerator (e.g., 2 3/4 = (2 × 4 + 3)/4 = 11/4).</li>
-                        <li>Improper to Mixed: Divide numerator by denominator. Remainder becomes top fraction.</li>
+                        <li><strong>Mixed → Improper:</strong> (Whole × Denominator) + Numerator, keep the same denominator. Example: 2 3/4 → (2 × 4) + 3 = 11, so 2 3/4 = 11/4.</li>
+                        <li><strong>Improper → Mixed:</strong> Divide the top by the bottom. The answer is the whole number; the remainder goes on top of the same denominator. Example: 11/4 → 11 ÷ 4 = 2 remainder 3, so 11/4 = 2 3/4.</li>
+                        <li><strong>Tip for adding/subtracting mixed numbers:</strong> Convert both to improper fractions first — it's much easier than juggling whole numbers and fractions separately.</li>
                     </ul>
                 </li>
             </ul>
             <div class="worked-example">
-                <strong>Worked Example:</strong> 2/3 + 1/4<br>
-                1. LCM of denominators 3 and 4 is 12.<br>
-                2. Convert: (2 × 4)/(3 × 4) = 8/12 and (1 × 3)/(4 × 3) = 3/12<br>
-                3. Add numerators: (8 + 3)/12 = <strong>11/12</strong>
+                <strong>Worked Example (Adding, Different Denominators):</strong> 2/3 + 1/4<br>
+                1. Find the LCM of 3 and 4 → <strong>12</strong>. This is our new common denominator.<br>
+                2. For 2/3: 3 × 4 = 12, so multiply the top by 4 too → 2 × 4 = 8. That gives 8/12.<br>
+                3. For 1/4: 4 × 3 = 12, so multiply the top by 3 too → 1 × 3 = 3. That gives 3/12.<br>
+                4. Now the bottoms match! Add the tops only: 8 + 3 = 11 → <strong>11/12</strong> (bottom stays 12).
             </div>
-            <span class="trap-warning">⚠️ Common Trap:</span> Never add or subtract bottom denominators! 1/2 + 1/2 = 2/2 = 1, NOT 2/4.
+            <div class="worked-example">
+                <strong>Worked Example (Subtracting Mixed Numbers):</strong> 4 1/2 - 2 2/3<br>
+                1. Convert both to improper fractions: 4 1/2 = (4×2+1)/2 = 9/2, and 2 2/3 = (2×3+2)/3 = 8/3.<br>
+                2. Find LCM of 2 and 3 → 6. Convert: 9/2 = 27/6, and 8/3 = 16/6.<br>
+                3. Subtract the tops: 27 - 16 = 11 → 11/6.<br>
+                4. Convert back to a mixed number: 11 ÷ 6 = 1 remainder 5 → <strong>1 5/6</strong>.
+            </div>
+            <span class="trap-warning">⚠️ Common Trap:</span> Never add or subtract the denominators! 1/2 + 1/2 = 1 (because 2/2 = 1), NOT 2/4. The denominator only tells you the size of the pieces — it doesn't change when you combine the pieces.
         `,
         warmup: "<strong>Quick 5-Min Warm-Up Quiz:</strong><br>1) What is the common denominator (LCM) for 1/3 and 2/5?<br>2) Convert 13/4 to a mixed number.",
         warmupAnswer: "1) LCM = 15 &nbsp;|&nbsp; 2) 3 1/4",
-        videoId: "N-Y0Kvcnw8g",
+        videoId: "pZEmFSP3Z0I",
         problems: [
             { q: "1. Convert 17/5 to mixed number", a: "3 2/5", steps: ["Divide numerator by denominator: 17 ÷ 5 = 3 remainder 2.", "The whole number is 3, and the remainder becomes the new numerator: 3 2/5."] },
             { q: "2. Convert 3 5/8 to improper fraction", a: "29/8", steps: ["Multiply whole number by denominator: 3 × 8 = 24.", "Add the numerator: 24 + 5 = 29.", "Keep the same denominator: 29/8."] },
